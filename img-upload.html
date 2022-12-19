@@ -1,0 +1,57 @@
+<html>
+  <head> </head>
+
+  <body>
+    <div
+      class="container-fluid d-flex flex-column vh-100 overflow-hidden"
+      id="container"
+    >
+      <nav
+        class="navbar navbar-expand-md navbar-dark sticky-top shadow"
+        id="header"
+        style="background-color: #0f54ea"
+      >
+        <div class="app-header">
+          <a class="title" href="" style="color: #f7f6f3"
+            >PyScript - Python in the Browser</a
+          >
+        </div>
+      </nav>
+
+      <div class="row overflow-hidden" id="content">
+        <div class="col mh-100 float-left" id="main">
+          <form>
+            <label for="fileInput">Choose an image file:</label><br />
+            <input
+              type="file"
+              id="fileInput"
+              name="fileInput"
+              accept="image/*"
+              onchange="uploadFile()"
+            />
+          </form>
+          <p id="fileInfo"></p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    function uploadFile() {
+      var fileInput = document.getElementById("fileInput");
+      var file = fileInput.files[0];
+
+      var formData = new FormData();
+      formData.append("file", file);
+
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "http://localhost:8000/uploadfile/", true);
+      xhr.onload = function () {
+        if (this.status == 200) {
+          var response = JSON.parse(this.responseText);
+          console.log(response.message);
+        }
+      };
+      xhr.send(formData);
+    }
+  </script>
+</html>

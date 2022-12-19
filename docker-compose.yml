@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  web:
+    build: 
+      context: app
+    volumes:
+      - ./app:/app:rw
+    ports:
+      - "8000:8000"
+
+volumes:
+  app:
